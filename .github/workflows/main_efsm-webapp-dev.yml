@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: "20.x"
 
       - name: npm install and build
         run: |
@@ -55,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -63,19 +63,19 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5FCFC13EED2E46A490006780758D616F }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8795B9FB1C6D412F91901F4BBD4B67F8 }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'EFSM-webapp-dev'
-          slot-name: 'Production'
+          app-name: "EFSM-webapp-dev"
+          slot-name: "Production"
           package: .
 
       - name: "Set Azure Web App Settings"
         uses: azure/appservice-settings@v1
         with:
-          app-name: 'EFSM-webapp-dev'
-          slot-name: 'Production'
+          app-name: "EFSM-webapp-dev"
+          slot-name: "Production"
           app-settings-json: |
             [
               { "name": "NEXT_PUBLIC_AZURE_AD_CLIENT_ID", "value": "${{ secrets.NEXT_PUBLIC_AZURE_AD_CLIENT_ID }}" },
@@ -89,4 +89,3 @@ jobs:
               { "name": "SCM_DO_BUILD_DURING_DEPLOYMENT", "value": "false" },
               { "name": "WEBSITE_NODE_DEFAULT_VERSION", "value": "~22" }
             ]
-          
